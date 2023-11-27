@@ -20,6 +20,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,12 +77,13 @@ public class PlaceController {
         }
     }
 
-    @GetMapping("/multiple")
-    public ResponseEntity<List<PlaceFrontendDTO>> getPlacesByUids(@RequestParam List<String> uids) {
+    @GetMapping("/all")
+    public ResponseEntity<List<PlaceFrontendDTO>> getAllPlaces() {
 
+        List<String> allUids = Arrays.asList("GXvPAor1ifNfpF0U5PTG0w", "ohGSnJtMIC5nPfYRi_HTAg");
         List<PlaceFrontendDTO> placeFrontendDTOs = new ArrayList<>();
 
-        for (String uid : uids) {
+        for (String uid : allUids) {
             try {
                 PlaceOriginalDTO placeOriginalDTO = restTemplate.getForObject(placesAPI + uid, PlaceOriginalDTO.class);
 
@@ -110,6 +112,7 @@ public class PlaceController {
             }
         }
 
+        logger.info("Returning {}/{} placeDTOs", placeFrontendDTOs.size(), allUids.size());
         return new ResponseEntity<>(placeFrontendDTOs, HttpStatus.OK);
     }
 
