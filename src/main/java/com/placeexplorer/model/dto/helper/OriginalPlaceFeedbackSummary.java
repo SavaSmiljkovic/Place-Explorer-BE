@@ -13,4 +13,5 @@ public class OriginalPlaceFeedbackSummary {
 
     @JsonProperty("average_rating")
     private double averageRating;
+
 }

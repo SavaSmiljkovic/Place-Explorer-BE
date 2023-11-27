@@ -9,4 +9,5 @@ public class OriginalLocation {
 
     private double lat;
     private double lon;
+
 }

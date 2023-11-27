@@ -12,4 +12,5 @@ import java.util.Map;
 public class OriginalOpeningHours {
 
     private Map<String, List<Shift>> days;
+
 }

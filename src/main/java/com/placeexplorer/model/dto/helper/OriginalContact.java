@@ -10,4 +10,5 @@ public class OriginalContact {
 
     @JsonProperty("call_link")
     private String callLink;
+
 }

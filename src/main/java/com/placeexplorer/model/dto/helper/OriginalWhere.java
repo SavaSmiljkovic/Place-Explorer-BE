@@ -14,4 +14,5 @@ public class OriginalWhere {
     private String city;
     private String state;
     private OriginalGeography geography;
+
 }

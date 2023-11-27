@@ -11,4 +11,5 @@ public class OriginalAddress {
 
     private OriginalWhere where;
     private List<OriginalContact> contacts;
+
 }
