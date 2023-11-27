@@ -34,7 +34,7 @@ public class DayValidator implements Validator {
             }
 
             if (!isDayNameValid(entry.getKey())) {
-                logger.error("Day Name is not appropriate: " + entry.getKey());
+                logger.error("Day Name is not appropriate: {}", entry.getKey());
                 return false;
             }
 

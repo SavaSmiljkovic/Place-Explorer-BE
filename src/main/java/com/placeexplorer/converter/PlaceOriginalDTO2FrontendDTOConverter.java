@@ -7,6 +7,9 @@ import com.placeexplorer.model.Shift;
 import com.placeexplorer.model.dto.PlaceFrontendDTO;
 import com.placeexplorer.model.dto.PlaceOriginalDTO;
 import com.placeexplorer.model.DayName;
+import com.placeexplorer.model.dto.helper.OriginalAddress;
+import com.placeexplorer.model.dto.helper.OriginalContact;
+import com.placeexplorer.model.dto.helper.OriginalLocation;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -35,19 +38,19 @@ public class PlaceOriginalDTO2FrontendDTOConverter implements Converter<PlaceOri
                                     convertOpeningHours(source.getOpeningHours().getDays()));
     }
 
-    private List<Address> convertAddresses(List<PlaceOriginalDTO.Address> originalAddresses) {
+    private List<Address> convertAddresses(List<OriginalAddress> originalAddresses) {
         return originalAddresses.stream()
                                 .map(this::convertAddress)
-                                .collect(Collectors.toList());
+                                .toList();
     }
 
-    private Address convertAddress(PlaceOriginalDTO.Address originalAddress) {
-        PlaceOriginalDTO.Location location = originalAddress.getWhere().getGeography().getLocation();
+    private Address convertAddress(OriginalAddress originalAddress) {
+        OriginalLocation location = originalAddress.getWhere().getGeography().getLocation();
 
         List<String> phoneNumbers = originalAddress.getContacts().stream()
-                                                   .map(PlaceOriginalDTO.Contact::getCallLink)
+                                                   .map(OriginalContact::getCallLink)
                                                    .filter(Objects::nonNull)
-                                                   .collect(Collectors.toList());
+                                                   .toList();
 
         return new Address(originalAddress.getWhere().getState(),
                            originalAddress.getWhere().getCity(),
@@ -62,7 +65,7 @@ public class PlaceOriginalDTO2FrontendDTOConverter implements Converter<PlaceOri
     private List<Day> convertOpeningHours(Map<String, List<Shift>> daysMap) {
         return daysMap.entrySet().stream()
                       .map(entry -> new Day(DayName.valueOf(entry.getKey().toUpperCase()), entry.getValue()))
-                      .collect(Collectors.toList());
+                      .toList();
     }
 
 

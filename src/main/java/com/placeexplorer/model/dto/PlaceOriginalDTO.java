@@ -1,7 +1,9 @@
 package com.placeexplorer.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.placeexplorer.model.Shift;
+import com.placeexplorer.model.dto.helper.OriginalAddress;
+import com.placeexplorer.model.dto.helper.OriginalOpeningHours;
+import com.placeexplorer.model.dto.helper.OriginalPlaceFeedbackSummary;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +21,7 @@ public class PlaceOriginalDTO {
     private String localEntryId;
 
     @JsonProperty("place_feedback_summary")
-    private PlaceFeedbackSummary placeFeedbackSummary;
+    private OriginalPlaceFeedbackSummary placeFeedbackSummary;
 
     @JsonProperty("displayed_what")
     private String displayedWhat;
@@ -28,69 +30,8 @@ public class PlaceOriginalDTO {
     private String displayedWhere;
 
     @JsonProperty("opening_hours")
-    private OpeningHours openingHours;
+    private OriginalOpeningHours openingHours;
 
-    private List<Address> addresses;
-
-    @Getter
-    @Setter
-    public static class PlaceFeedbackSummary {
-
-        @JsonProperty("ratings_count")
-        private int ratingsCount;
-
-        @JsonProperty("average_rating")
-        private double averageRating;
-    }
-
-    @Getter
-    @Setter
-    public static class Address {
-
-        private Where where;
-        private List<Contact> contacts;
-    }
-
-    @Getter
-    @Setter
-    public static class Contact {
-
-        @JsonProperty("call_link")
-        private String callLink;
-    }
-
-    @Getter
-    @Setter
-    public static class Where {
-
-        @JsonProperty("house_number")
-        private String houseNumber;
-        private String street;
-        private String city;
-        private String state;
-        private Geography geography;
-    }
-
-    @Getter
-    @Setter
-    public static class Geography {
-
-        private Location location;
-    }
-
-    @Getter
-    @Setter
-    public static class Location {
-
-        private double lat;
-        private double lon;
-    }
-
-    @Getter
-    @Setter
-    public static class OpeningHours {
-
-        private Map<String, List<Shift>> days;
-    }
+    private List<OriginalAddress> addresses;
 
 }
