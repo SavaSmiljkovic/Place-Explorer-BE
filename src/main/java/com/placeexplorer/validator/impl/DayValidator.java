@@ -43,6 +43,11 @@ public class DayValidator implements Validator {
                     logger.error("Shift Start or End value is not defined");
                     return false;
                 }
+
+                if (isNotValidTimeFormat(shift.getStart()) || isNotValidTimeFormat(shift.getEnd())) {
+                    logger.error("Shift Start or End is not in valid time format");
+                    return false;
+                }
             }
         }
 
@@ -60,6 +65,16 @@ public class DayValidator implements Validator {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    // hh:mm
+    private boolean isNotValidTimeFormat(String shiftTime) {
+        return shiftTime.length() != 5 &&
+            shiftTime.charAt(2) != ':' &&
+            !Character.isDigit(shiftTime.charAt(0)) &&
+            !Character.isDigit(shiftTime.charAt(1)) &&
+            !Character.isDigit(shiftTime.charAt(3)) &&
+            !Character.isDigit(shiftTime.charAt(4));
     }
 
 }

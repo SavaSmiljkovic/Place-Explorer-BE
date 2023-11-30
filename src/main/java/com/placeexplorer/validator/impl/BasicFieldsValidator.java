@@ -20,8 +20,8 @@ public class BasicFieldsValidator implements Validator {
             isUndefined(placeOriginalDTO.getDisplayedWhat()) ||
             isUndefined(placeOriginalDTO.getDisplayedWhere()) ||
             Objects.isNull(placeOriginalDTO.getPlaceFeedbackSummary()) ||
-            placeOriginalDTO.getPlaceFeedbackSummary().getRatingsCount() == 0 ||
-            placeOriginalDTO.getPlaceFeedbackSummary().getAverageRating() == 0.0) {
+            placeOriginalDTO.getPlaceFeedbackSummary().getAverageRating() < 0.0 ||
+            placeOriginalDTO.getPlaceFeedbackSummary().getAverageRating() > 5.0) {
             logger.error("Some basic fields are not defined");
             return false;
         }

@@ -52,7 +52,7 @@ public class AddressValidator implements Validator {
             return false;
         }
 
-        contacts.removeIf(contact -> Objects.isNull(contact.getCallLink()));
+        contacts.removeIf(contact -> !isDefined(contact.getCallLink()));
         return !contacts.isEmpty();
     }
 
