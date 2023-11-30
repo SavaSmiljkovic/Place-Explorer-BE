@@ -18,9 +18,9 @@ Configure WebSecurity, in security/WebSecurity.java class.
 
 ### Prerequisites
 
-Code is written using Java. Please use Java 17. Installation guide: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
-Repository is MongoDB. Installation guide: https://www.mongodb.com/docs/manual/installation/
-Build automation and dependency management is done by Maven. Please take a look at the pom.xml file. Installation guide: https://maven.apache.org/install.html
+- Code is written using Java. Please use Java 17. Installation guide: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+- Repository is MongoDB. Installation guide: https://www.mongodb.com/docs/manual/installation/
+- Build automation and dependency management is done by Maven. Please take a look at the pom.xml file. Installation guide: https://maven.apache.org/install.html
 
 ### Installation
 
