@@ -1,5 +1,6 @@
 package com.placeexplorer.converter;
 
+import com.placeexplorer.formatter.PlaceFormatter;
 import com.placeexplorer.errorHandler.dedicatedException.PlaceConverterException;
 import com.placeexplorer.model.Address;
 import com.placeexplorer.model.Day;
@@ -10,6 +11,7 @@ import com.placeexplorer.model.DayName;
 import com.placeexplorer.model.dto.helper.OriginalAddress;
 import com.placeexplorer.model.dto.helper.OriginalContact;
 import com.placeexplorer.model.dto.helper.OriginalLocation;
+import jakarta.annotation.Resource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,12 @@ import java.util.Objects;
 @Component
 public class PlaceOriginalDTO2FrontendDTOConverter implements Converter<PlaceOriginalDTO, PlaceFrontendDTO> {
 
+    @Resource
+    private Days2PlaceOpeningStatusConverter days2PlaceOpeningStatusConverter;
+
+    @Resource
+    private PlaceFormatter defaultPlaceFormatter;
+
     @Override
     public PlaceFrontendDTO convert(PlaceOriginalDTO source) {
 
@@ -27,14 +35,19 @@ public class PlaceOriginalDTO2FrontendDTOConverter implements Converter<PlaceOri
             throw new PlaceConverterException("Exception while converting PlaceOriginalDTO to PlaceFrontendDTO");
         }
 
+        List<Day> days = convertDays(source.getOpeningHours().getDays());
+
         return new PlaceFrontendDTO(source.getLocalEntryId(),
                                     source.getEntryType(),
                                     source.getDisplayedWhat(),
                                     source.getDisplayedWhere(),
                                     source.getPlaceFeedbackSummary().getRatingsCount(),
                                     source.getPlaceFeedbackSummary().getAverageRating(),
-                                    convertAddresses(source.getAddresses()),
-                                    convertOpeningHours(source.getOpeningHours().getDays()));
+                                    defaultPlaceFormatter.formatAddress(convertAddresses(source.getAddresses())),
+                                    days,
+                                    days2PlaceOpeningStatusConverter.convert(days),
+                                    defaultPlaceFormatter.getRatingStars(source.getPlaceFeedbackSummary().getAverageRating()),
+                                    defaultPlaceFormatter.groupDaysByOpeningHours(days));
     }
 
     private List<Address> convertAddresses(List<OriginalAddress> originalAddresses) {
@@ -61,7 +74,7 @@ public class PlaceOriginalDTO2FrontendDTOConverter implements Converter<PlaceOri
         );
     }
 
-    private List<Day> convertOpeningHours(Map<String, List<Shift>> daysMap) {
+    private List<Day> convertDays(Map<String, List<Shift>> daysMap) {
         return daysMap.entrySet().stream()
                       .map(entry -> new Day(DayName.valueOf(entry.getKey().toUpperCase()), entry.getValue()))
                       .toList();
