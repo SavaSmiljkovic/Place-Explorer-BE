@@ -1,14 +1,14 @@
 # Place Explorer
 
-Place Explorer Application.
+- Place Explorer Application.
 
 ## Overview
 
-Getting places from OpenApi, and caching them asynchronously in MongoDB, in case that OpenApi fails.
+- Getting places from OpenApi, and caching them asynchronously in MongoDB, in case that OpenApi fails.
 
 ## Features
 
-List of all features can be found here: https://github.com/users/SavaSmiljkovic/projects/5/views/1
+- List of all features can be found here: https://github.com/users/SavaSmiljkovic/projects/5/views/1
 
 ## Getting Started
 
@@ -28,5 +28,6 @@ List of all features can be found here: https://github.com/users/SavaSmiljkovic/
 
 ### Installation
 
-Link to this project, on GitHub: https://github.com/SavaSmiljkovic/Place-Explorer-BE
-Just clone it, check all the prerequisites, and you are good to go.
+- Link to this project, on GitHub: https://github.com/SavaSmiljkovic/Place-Explorer-BE
+  
+- Just clone it, check all the prerequisites, and you are good to go.
