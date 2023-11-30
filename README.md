@@ -12,14 +12,18 @@ List of all features can be found here: https://github.com/users/SavaSmiljkovic/
 
 ## Getting Started
 
-Configuration is located in application.properties file (port, paths, database, cors, etc.)
-Create application-local.properties file, where you should keep your passwords. Located in same directory where application.properties file is.
-Configure WebSecurity, in security/WebSecurity.java class.
+- Configuration is located in application.properties file (port, paths, database, cors, etc.)
+  
+- Create application-local.properties file, where you should keep your passwords. Located in same directory where application.properties file is.
+  
+- Configure WebSecurity, in security/WebSecurity.java class.
 
 ### Prerequisites
 
 - Code is written using Java. Please use Java 17. Installation guide: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+  
 - Repository is MongoDB. Installation guide: https://www.mongodb.com/docs/manual/installation/
+  
 - Build automation and dependency management is done by Maven. Please take a look at the pom.xml file. Installation guide: https://maven.apache.org/install.html
 
 ### Installation
