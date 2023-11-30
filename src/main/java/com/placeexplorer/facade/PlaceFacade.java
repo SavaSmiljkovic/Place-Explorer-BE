@@ -27,6 +27,13 @@ public interface PlaceFacade {
     void saveAsynchronously(PlaceOriginalDTO placeOriginalDTO);
 
     /**
+     * Updates Place in database, if needed, in background asynchronously.
+     *
+     * @param placeOriginalDTO DTO that will be converted and saved in database
+     */
+    void updateAsynchronouslyIfNeeded(PlaceOriginalDTO placeOriginalDTO);
+
+    /**
      * Checks if Place exists in database by uid.
      *
      * @param uid UID of requested Place

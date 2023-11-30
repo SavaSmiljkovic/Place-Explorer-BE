@@ -41,6 +41,11 @@ public class DefaultPlaceFacade implements PlaceFacade {
     }
 
     @Override
+    public void updateAsynchronouslyIfNeeded(PlaceOriginalDTO placeOriginalDTO) {
+        defaultPlaceService.updateAsynchronouslyIfNeeded(placeOriginalDTO2EntityConverter.convert(placeOriginalDTO));
+    }
+
+    @Override
     public boolean existsByUid(String uid) {
         return defaultPlaceService.exists(uid);
     }

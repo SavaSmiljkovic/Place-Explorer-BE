@@ -19,6 +19,13 @@ public interface PlaceService {
     void saveAsynchronously(Place place);
 
     /**
+     * Updates Place in database, if needed, in background asynchronously.
+     *
+     * @param place Place that will be saved in database
+     */
+    void updateAsynchronouslyIfNeeded(Place place);
+
+    /**
      * Checks if Place exists in database by uid.
      *
      * @param uid UID of requested Place

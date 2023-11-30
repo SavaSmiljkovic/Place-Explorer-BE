@@ -33,6 +33,9 @@ public class PlaceController {
     @Value("${api.rest.places}")
     private String placesAPI;
 
+    @Value("${api.rest.places.uids}")
+    private String allPlaceUids;
+
     @Resource
     private RestTemplate restTemplate;
 
@@ -61,6 +64,8 @@ public class PlaceController {
             if (!defaultPlaceFacade.existsByUid(uid)) {
                 logger.info("Saving original placeDTO asynchronously in DB. UID: {}", uid);
                 defaultPlaceFacade.saveAsynchronously(placeOriginalDTO);
+            } else {
+                defaultPlaceFacade.updateAsynchronouslyIfNeeded(placeOriginalDTO);
             }
 
             logger.info("Returning original placeDTO");
@@ -80,7 +85,7 @@ public class PlaceController {
     @GetMapping("/all")
     public ResponseEntity<List<PlaceFrontendDTO>> getAllPlaces() {
 
-        List<String> allUids = Arrays.asList("GXvPAor1ifNfpF0U5PTG0w", "ohGSnJtMIC5nPfYRi_HTAg");
+        List<String> allUids = Arrays.asList(allPlaceUids.split(","));
         List<PlaceFrontendDTO> placeFrontendDTOs = new ArrayList<>();
 
         for (String uid : allUids) {
@@ -95,6 +100,8 @@ public class PlaceController {
                 if (!defaultPlaceFacade.existsByUid(uid)) {
                     logger.info("Saving original placeDTO asynchronously in DB. UID: {}", uid);
                     defaultPlaceFacade.saveAsynchronously(placeOriginalDTO);
+                } else {
+                    defaultPlaceFacade.updateAsynchronouslyIfNeeded(placeOriginalDTO);
                 }
 
                 logger.info("Adding original placeDTO to response");
