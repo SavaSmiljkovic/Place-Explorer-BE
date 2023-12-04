@@ -15,17 +15,10 @@ import java.util.List;
 @Setter
 public class Days2PlaceOpeningStatusConverter implements Converter<List<Day>, OpeningStatus> {
 
-    private LocalDateTime testDateTime;
-
     @Override
     public OpeningStatus convert(List<Day> source) {
 
-        LocalDateTime currentDateTime;
-        if (testDateTime == null) {
-            currentDateTime = LocalDateTime.now();
-        } else {
-            currentDateTime = testDateTime;
-        }
+        LocalDateTime currentDateTime = getCurrentTime();
 
         Day workingDay = source.stream()
                                .filter(day -> day.getName().toString().equals(currentDateTime.getDayOfWeek().toString()))
@@ -46,6 +39,10 @@ public class Days2PlaceOpeningStatusConverter implements Converter<List<Day>, Op
 
         Day nextWorkingDay = getNextWorkingDay(source, currentDateTime);
         return new OpeningStatus(false, nextWorkingDay.getShifts().get(0).getStart() + " " + capitalize(nextWorkingDay.getName().toString()));
+    }
+
+    public LocalDateTime getCurrentTime() {
+        return LocalDateTime.now();
     }
 
     private Shift getActiveShift(Day workingDay, LocalTime currentTime) {

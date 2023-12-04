@@ -6,6 +6,7 @@ import com.placeexplorer.model.Day;
 import com.placeexplorer.model.DayName;
 import com.placeexplorer.model.Shift;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@SpringBootTest
 class DefaultPlaceFormatterTest {
 
     private final PlaceFormatter defaultPlaceFormatter = new DefaultPlaceFormatter();
