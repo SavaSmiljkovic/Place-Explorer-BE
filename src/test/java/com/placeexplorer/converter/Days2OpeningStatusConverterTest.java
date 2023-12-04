@@ -7,9 +7,7 @@ import com.placeexplorer.model.OpeningStatus;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +25,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void beforeFirstShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 8, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 8, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(false, "09:00");
@@ -39,7 +37,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void atStartOfFirstShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 9, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 9, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(true, "17:00");
@@ -51,7 +49,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void atMiddleOfFirstShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 12, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 12, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(true, "17:00");
@@ -63,7 +61,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void atEndOfFirstShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 17, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 17, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(false, "18:00");
@@ -75,7 +73,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void betweenShifts() {
         Days2PlaceOpeningStatusConverter converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 17, 30));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 17, 30));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(false, "18:00");
@@ -87,7 +85,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void atStartOfSecondShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 18, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 18, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(true, "20:00");
@@ -99,7 +97,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void atMiddleOfSecondShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 19, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 19, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(true, "20:00");
@@ -111,7 +109,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void atEndOfSecondShift() {
         converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 20, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 20, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(false, "09:00 Tuesday");
@@ -123,7 +121,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void afterShifts() {
         Days2PlaceOpeningStatusConverter converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.MONDAY, 22, 0));
+        converter.setTestDateTime(getDate(DayName.MONDAY, 22, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(false, "09:00 Tuesday");
@@ -135,7 +133,7 @@ class Days2OpeningStatusConverterTest {
     @Test
     void notWorkingDayAtAll() {
         Days2PlaceOpeningStatusConverter converter = new Days2PlaceOpeningStatusConverter();
-        converter.setCurrentDate(getDate(DayName.SATURDAY, 12, 0));
+        converter.setTestDateTime(getDate(DayName.SATURDAY, 12, 0));
 
         result = converter.convert(workingDays);
         expected = new OpeningStatus(false, "09:00 Monday");
@@ -167,9 +165,9 @@ class Days2OpeningStatusConverterTest {
     // 1.1.2023. -> SUNDAY
     // 2.1.2023. -> MONDAY
     // 3.1.2023. -> TUESDAY
-    private Date getDate(DayName dayName, int hour, int minute) {
+    private LocalDateTime getDate(DayName dayName, int hour, int minute) {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 1, getIntFromDayName(dayName), hour, minute);
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return localDateTime;
     }
 
     private int getIntFromDayName(DayName dayName) {
